@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<stdbool.h>
+#include"dos.h"
+
 void wtime(int p1[], int n,int bt[], int wt[], int q1)
 {
 	int s=0;
@@ -25,6 +27,7 @@ void wtime(int p1[], int n,int bt[], int wt[], int q1)
 					rem_bt[i] =rem_bt[i]-q1;
 					s=s+1;
 					seq[i]=p1[i];
+					sleep(1);
 					printf("%5d   to %5d     :\tP%d\n",t1,t,seq[i]);
 				}
 				else
@@ -35,6 +38,7 @@ void wtime(int p1[], int n,int bt[], int wt[], int q1)
 					rem_bt[i] = 0;
 					s=s+1;
 					seq[i]=p1[i];
+					sleep(1);
 					printf("%5d   to %5d     :\tP%d\n",t2,t,seq[i]);
 				}
 			}
