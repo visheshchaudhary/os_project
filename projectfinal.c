@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include"dos.h"
-
+#include<windows.h>
 void wtime(int p1[], int n,int bt[], int wt[], int q1)
 {
 	int s=0;
@@ -14,12 +14,12 @@ void wtime(int p1[], int n,int bt[], int wt[], int q1)
 	printf("%5d   to %5d     :\tCPU IS IDEAL\n",0,3);
 	while (1)
 	{
-		bool done = true;
+		bool d1 = true;
 		for (i = 0 ; i < n; i++)
 		{
 			if (rem_bt[i] > 0)
 			{
-				done = false;
+				d1 = false;
 				if (rem_bt[i] > q1)
 				{
 					int t1=t;
@@ -27,7 +27,7 @@ void wtime(int p1[], int n,int bt[], int wt[], int q1)
 					rem_bt[i] =rem_bt[i]-q1;
 					s=s+1;
 					seq[i]=p1[i];
-					sleep(1);
+					//sleep(1);
 					printf("%5d   to %5d     :\tP%d\n",t1,t,seq[i]);
 				}
 				else
@@ -38,27 +38,26 @@ void wtime(int p1[], int n,int bt[], int wt[], int q1)
 					rem_bt[i] = 0;
 					s=s+1;
 					seq[i]=p1[i];
-					sleep(1);
+					//sleep(1);
 					printf("%5d   to %5d     :\tP%d\n",t2,t,seq[i]);
 				}
 			}
 		}
-		if (done == true)
+		if (d1 == true)
 		break;
 	}
 }
-void findTurnAroundTime(int p1[], int n,
-						int bt[], int wt[], int tat[])
+void turntime(int p1[], int n,int bt[], int wt[], int tat[])
 {
     int i;
 	for (i = 0; i < n ; i++)
 		tat[i] = bt[i] + wt[i];
 }
-void findavgTime(int p1[], int n, int bt[],int q2)
+void avgTime(int p1[], int n, int bt[],int q2,int p2[])
 {
 	int wt[n], tat[n], total_wt = 0, total_tat = 0;
     wtime(p1, n, bt, wt, q2);
-	findTurnAroundTime(p1, n, bt, wt, tat);
+	turntime(p1, n, bt, wt, tat);
 	int i;
 	printf("\nProcesses       Burst time     Waiting time   Turn around time\n");
 	for (i=0; i<n; i++)
@@ -78,10 +77,12 @@ int main()
     int n1;
     scanf("%d",&n1);
 	int p[n1];
+	int p2[n1];
 	int bt1[n1];
 	for(i=0;i<n1;i++)
     {
         p[i]=(i+1);
+        p2[i]=(i+1);
     }
     for(i=0;i<n1;i++)
     {
@@ -107,6 +108,8 @@ int main()
 	printf("\nENTER THE VALUE OF TIME QUANTUM :\n");
 	int q;
 	scanf("%d",&q);
-	findavgTime(p, n1, bt1, q);
+	fflush(stdout);
+	sleep(3);
+	avgTime(p, n1, bt1, q, p2);
 	return 0;
 }
